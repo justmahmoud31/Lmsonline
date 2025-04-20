@@ -27,7 +27,7 @@ const Offer: React.FC = () => {
         <h2 className="text-2xl font-bold">ما نقدمة لك في منصة 100% اونلاين</h2>
         <img src={line} className="lg:mt-40 lg:flex hidden" />
       </div>
-      <div className="grid lg:grid-cols-3 grid-cols-1 lg:gap-24 gap-12 p-4 lg:px-24 font-main">
+      <div className="grid lg:grid-cols-3 grid-cols-1 lg:gap-24 gap-4 p-4 lg:px-24 font-main">
         {offerItems.map((item, index) => (
           <div
             key={index}

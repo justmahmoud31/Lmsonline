@@ -3,8 +3,12 @@ import mainpic from "../../../assets/main-pic.png";
 
 const Hero: React.FC = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 lg:px-16 font-main" dir="rtl">
-      <div className="flex flex-col justify-center my-10 md:my-20">
+    <div
+      className="flex flex-col-reverse md:flex-row gap-4 p-4 lg:px-16 font-main"
+      dir="rtl"
+    >
+      {/* Text Content */}
+      <div className="flex flex-col justify-center my-10 md:my-20 w-full md:w-1/2">
         <div className="text-start flex flex-col items-start">
           <h1 className="lg:text-3xl text-xl font-bold text-gray-800 mb-4 font-main">
             منصة 100% اونلاين
@@ -36,7 +40,9 @@ const Hero: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center items-center">
+
+      {/* Image Section */}
+      <div className="flex justify-center items-center w-full md:w-1/2">
         <img src={mainpic} alt="الواجهة الرئيسية" className="w-3/4" />
       </div>
     </div>
