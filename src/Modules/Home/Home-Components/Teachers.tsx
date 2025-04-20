@@ -72,7 +72,7 @@ const Teachers: React.FC = () => {
       </div>
 
       <div className="flex justify-center mt-8 px-4">
-        <div className="flex gap-2 bg-gray-200 p-3 rounded-lg shadow-sm flex-wrap">
+        <div className="flex  gap-2 bg-gray-200 p-3 rounded-lg shadow-sm ">
           {/* Stage Dropdown */}
           <select
             value={selectedStage}

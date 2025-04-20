@@ -33,13 +33,13 @@ const Courses: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col font-main items-center lg:px-8 px-4">
+    <div className="flex flex-col font-main items-center lg:px-16 px-8 px-4">
       <div className="flex flex-col justify-center items-center my-10">
         <h2 className="text-2xl font-semibold">كورستنا المقترحة</h2>
         <img src={line} className="w-36 mt-2" alt="line" />
       </div>
       <p className='px-8'>علشان نوفر وقتك، جمعنالك كورسات على ذوقك، وكأننا بنختارلك كنز تعليمي متفصل عليك! 🎓💡</p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 lg:px-24 px-8 w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10  w-full">
         {courses.map((course, index) => (
           <DetaildCourseCard key={index} {...course} />
         ))}
