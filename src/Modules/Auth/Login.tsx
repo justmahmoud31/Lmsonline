@@ -65,7 +65,7 @@ const Login: React.FC = () => {
 
             {/* Login Button */}
             <div className="flex justify-center">
-              <button className="w-1/4 py-2 bg-main text-white font-semibold rounded-3xl cursor-pointer shadow-md hover:shadow-lg transition duration-200">
+              <button className="lg:w-1/4 w-1/2 py-2 bg-main text-white font-semibold rounded-3xl cursor-pointer shadow-md hover:shadow-lg transition duration-200">
                 تسجيل الدخول
               </button>
             </div>
