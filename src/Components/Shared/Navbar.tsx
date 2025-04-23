@@ -77,7 +77,12 @@ const Navbar: React.FC = () => {
             كورساتي
           </a>
           <hr className="my-2" />
-          <button className="flex items-center justify-center gap-1 w-full border border-gray-400 text-gray-800 px-3 py-2 rounded-full hover:bg-gray-100">
+          <button
+            onClick={() => {
+              navigate("/login");
+            }}
+            className="flex items-center justify-center gap-1 w-full border border-gray-400 text-gray-800 px-3 py-2 rounded-full hover:bg-gray-100"
+          >
             <FaLock className="text-sm" />
             تسجيل دخول
           </button>
