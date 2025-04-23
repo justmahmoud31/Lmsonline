@@ -29,13 +29,13 @@ const DetaildCourseCard: React.FC<DetailedCardCourseProps> = ({
         />
       </div>
       {/* Content */}
-      <div className="p-4 z-400 space-y-2 bg-secondary flex flex-col justify-between  w-19/20 rounded-lg mx-auto">
+      <div className="p-4 z-400 space-y-2 bg-secondary flex flex-col justify-between h-60  w-19/20 rounded-lg mx-auto">
         {/* Price */}
         <div className="flex justify-between items-center w-full">
           <h3 className="text-md font-bold text-right">{courseName}</h3>
           <div className="flex"></div>
           <div className="bg-[#001E43] flex gap-2 text-white text-sm px-2 py-1 rounded-md w-fit ">
-            <p className="bg-white text-main rounded-sm">
+            <p className="bg-white text-main rounded-sm px-1">
               {" "}
               {coursePrice.toFixed(2)}{" "}
             </p>

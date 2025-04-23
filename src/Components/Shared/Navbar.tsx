@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
 import { HiMenu, HiX } from "react-icons/hi";
 import logo from "../../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const navigate = useNavigate();
   const toggleMenu = () => setMenuOpen((prev) => !prev);
 
   return (
@@ -38,7 +38,12 @@ const Navbar: React.FC = () => {
 
         {/* Left buttons */}
         <div className="hidden md:flex items-center gap-2">
-          <button className="flex items-center gap-1 text-white cursor-pointer  text-gray-800 px-3 py-2 rounded-full bg-main">
+          <button
+            onClick={() => {
+              navigate("/login");
+            }}
+            className="flex items-center gap-1 text-white cursor-pointer  text-gray-800 px-3 py-2 rounded-full bg-main"
+          >
             <FaLock className="text-sm" />
             تسجيل دخول
           </button>
