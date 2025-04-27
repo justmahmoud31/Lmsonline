@@ -1,6 +1,7 @@
 import React from 'react';
 import line from "../../../assets/Line 2.png";
 import DetaildCourseCard from '../../../Components/Courses-Components/Detailed-Course-Card';
+import { Link } from 'react-router-dom';
 
 
 const Courses: React.FC = () => {
@@ -43,6 +44,9 @@ const Courses: React.FC = () => {
         {courses.map((course, index) => (
           <DetaildCourseCard key={index} {...course} />
         ))}
+      </div>
+      <div className="flex justify-center items-center mt-8">
+        <Link to={'/courses'} className='bg-main py-2 text-white rounded-full px-6'>عرض المزيد</Link>
       </div>
     </div>
   );

@@ -1,31 +1,26 @@
 import React, { useState } from "react";
 import line from "../../../assets/Line 2.png";
 import TeacherCard from "../../../Components/Teachers-Components/Teacher-Card";
-
+import { Link } from "react-router-dom";
 
 const Teachers: React.FC = () => {
   const options = [
     {
       stage: "المرحلة الثانوية",
       grades: [
-        "الصف الثالث الثانوي",
-        "الصف الثاني الثانوي",
-        "الصف الأول الثانوي",
+        "الصف الثاني عشر",
+        "الصف الحادي عشر",
+        "الصف العاشر ",
       ],
       sections: ["علمي", "أدبي"],
     },
     {
-      stage: "المرحلة الإعدادية",
-      grades: [
-        "الصف الثالث الإعدادي",
-        "الصف الثاني الإعدادي",
-        "الصف الأول الإعدادي",
-      ],
+      stage: "المرحلة المتوسطة",
+      grades: ["الصف التاسع","الصف الثامن", "الصف  السابع", "الصف  السادس"],
     },
     {
       stage: "المرحلة الابتدائية",
       grades: [
-        "الصف السادس الابتدائي",
         "الصف الخامس الابتدائي",
         "الصف الرابع الابتدائي",
         "الصف الثالث الابتدائي",
@@ -36,32 +31,38 @@ const Teachers: React.FC = () => {
   ];
 
   const [selectedStage, setSelectedStage] = useState<string>(options[0].stage);
-  const [selectedGrade, setSelectedGrade] = useState<string>(options[0].grades[0]);
+  const [selectedGrade, setSelectedGrade] = useState<string>(
+    options[0].grades[0]
+  );
   const [selectedSection, setSelectedSection] = useState<string>("علمي");
 
   const currentStageObj = options.find((o) => o.stage === selectedStage);
 
   const teachers = [
     {
-      image: "https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?q=80&w=1366&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:
+        "https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?q=80&w=1366&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       name: "أ/ محمد حسين",
       subject: "رياضيات",
     },
     {
-      image: "https://images.unsplash.com/photo-1522556189639-b150ed9c4330?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:
+        "https://images.unsplash.com/photo-1522556189639-b150ed9c4330?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       name: "أ/ علي سالم",
       subject: "فيزياء",
     },
     {
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1528&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1528&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       name: "أ/ نسرين خليل",
       subject: "كيمياء",
     },
     {
-      image: "https://plus.unsplash.com/premium_photo-1673957923985-b814a9dbc03d?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:
+        "https://plus.unsplash.com/premium_photo-1673957923985-b814a9dbc03d?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       name: "أ/ ندى فؤاد",
       subject: "لغة عربية",
-    }
+    },
   ];
 
   return (
@@ -132,6 +133,14 @@ const Teachers: React.FC = () => {
             subject={teacher.subject}
           />
         ))}
+      </div>
+      <div className="flex justify-center items-center mt-8">
+        <Link
+          to={"/teachers"}
+          className="bg-main py-2 text-white rounded-full px-6"
+        >
+          عرض المزيد
+        </Link>
       </div>
     </div>
   );
