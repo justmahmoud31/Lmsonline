@@ -1,13 +1,11 @@
 import React, { useCallback, useReducer } from "react";
 import toast from "react-hot-toast";
-import { FiLock, FiPhone } from "react-icons/fi";
+import { FiEye, FiEyeOff, FiLock, FiPhone } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import loginPic from "../../assets/bro.png";
-import Footer from "../../Components/Shared/Footer";
 import { loginUser } from "../../Store/Apis/Auth/Login/LoginApi";
 import { AppDispatch, RootState } from "../../Store/store";
-import { FiEye, FiEyeOff } from "react-icons/fi";
 const initialState = {
   phoneNumber: "",
   password: "",
@@ -123,7 +121,6 @@ const Login: React.FC = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

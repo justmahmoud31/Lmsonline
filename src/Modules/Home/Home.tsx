@@ -1,4 +1,3 @@
-import Footer from "../../Components/Shared/Footer";
 import Courses from "./Home-Components/Courses";
 import Hero from "./Home-Components/Hero";
 import Offer from "./Home-Components/Offer";
@@ -13,7 +12,6 @@ function Home() {
       <Teachers />
       <Courses />
       <Subjects />
-      <Footer />
     </>
   );
 }

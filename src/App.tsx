@@ -4,16 +4,20 @@ import Home from "./Modules/Home/Home";
 import Navbar from "./Components/Shared/Navbar";
 import Login from "./Modules/Auth/Login";
 import { Toaster } from "react-hot-toast";
+import Signup from "./Modules/Auth/Signup";
+import Footer from "./Components/Shared/Footer";
 
 function App() {
   return (
     <>
-     <Toaster position="top-center" />
+      <Toaster position="top-center" />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Signup />} />
       </Routes>
+      <Footer />
     </>
   );
 }

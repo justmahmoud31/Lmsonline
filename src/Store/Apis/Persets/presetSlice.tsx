@@ -2,9 +2,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getPresets } from "./getPersets";
 import { PresetsState } from "../../../Types/preset";
+
 const initialState: PresetsState = {
-  presets: [],
-  count: 0,
+  grades: [],
+  stages: [],
   loading: false,
   error: null,
 };
@@ -21,8 +22,15 @@ const presetsSlice = createSlice({
       })
       .addCase(getPresets.fulfilled, (state, action) => {
         state.loading = false;
-        state.presets = action.payload.data;
-        state.count = action.payload.count;
+        console.log("action.payload", action.payload);
+        console.log("action.meta.arg", action.meta.arg);
+        
+        const entity = action.meta.arg.entity;
+        if (entity === "GRADE") {
+          state.grades = action.payload.data;
+        } else if (entity === "STAGE") {
+          state.stages = action.payload.data;
+        }
       })
       .addCase(getPresets.rejected, (state, action) => {
         state.loading = false;
