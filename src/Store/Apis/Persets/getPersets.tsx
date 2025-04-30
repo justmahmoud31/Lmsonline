@@ -1,4 +1,3 @@
-// src/store/presets/presetsThunk.ts
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { ApiError } from "../../../Types/global";
