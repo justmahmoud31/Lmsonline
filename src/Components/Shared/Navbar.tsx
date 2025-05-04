@@ -30,7 +30,7 @@ const Navbar: React.FC = () => {
     localStorage.removeItem("role");
     navigate("/login");
     handleClose();
-  }
+  };
   return (
     <nav
       className="bg-white font-main shadow px-4 sm:px-8 py-3 text-sm font-medium"
@@ -74,10 +74,13 @@ const Navbar: React.FC = () => {
                 onClick={handleClose}
               >
                 <MenuItem onClick={handleClose}>
-                  <div className="flex justify-start items-center gap-2">
+                  <Link
+                    to={"/userprofile"}
+                    className="flex justify-start items-center gap-2"
+                  >
                     <CiHome />
                     الملف الشخصي
-                  </div>
+                  </Link>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
                   <div className="flex justify-start items-center gap-2">
@@ -93,8 +96,10 @@ const Navbar: React.FC = () => {
                   تسجيل الخروج
                 </MenuItem>
               </Menu>
-            <IoIosNotificationsOutline size={38} className="bg-main rounded-full p-1.5 text-white"/>
-
+              <IoIosNotificationsOutline
+                size={38}
+                className="bg-main rounded-full p-1.5 text-white"
+              />
             </div>
           </>
         ) : (

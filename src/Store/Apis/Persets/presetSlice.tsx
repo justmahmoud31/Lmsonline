@@ -21,10 +21,7 @@ const presetsSlice = createSlice({
         state.error = null;
       })
       .addCase(getPresets.fulfilled, (state, action) => {
-        state.loading = false;
-        console.log("action.payload", action.payload);
-        console.log("action.meta.arg", action.meta.arg);
-        
+        state.loading = false;   
         const entity = action.meta.arg.entity;
         if (entity === "GRADE") {
           state.grades = action.payload.data;

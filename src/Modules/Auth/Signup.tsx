@@ -11,7 +11,7 @@ import { AppDispatch, RootState } from "../../Store/store";
 
 const Signup: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { grades, stages } = useSelector((state: RootState) => state.presets);
+  const { stages } = useSelector((state: RootState) => state.presets);
 
   const [formData, setFormData] = useState({
     firstName: "",
