@@ -129,45 +129,75 @@ const Navbar: React.FC = () => {
         {/* Hamburger for mobile */}
         <div className="md:hidden">
           <button onClick={toggleMenu} className="text-gray-700">
-            {menuOpen ? <HiX size={24} /> : <HiMenu size={24} />}
+            {menuOpen ? <HiX size={24} cursor="pointer"/> : <HiMenu cursor="pointer" size={24} />}
           </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden mt-4 space-y-3 text-right">
-          <Link to={"/"} className="block px-4 py-2 hover:bg-gray-100">
+        <div className="md:hidden mt-4 space-y-3 text-right border-t pt-4">
+          {/* Links */}
+          <Link to="/" className="block px-4 py-2 hover:bg-gray-100">
             الرئيسية
           </Link>
-          <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-            المحرسين
-          </a>
-          <a href="#" className="block px-4 py-2 hover:bg-gray-100">
+          <Link to="/teachers" className="block px-4 py-2 hover:bg-gray-100">
+            المدرسين
+          </Link>
+          <Link to="/subjects" className="block px-4 py-2 hover:bg-gray-100">
             المواد
-          </a>
-          <a href="#" className="block px-4 py-2 hover:bg-gray-100">
+          </Link>
+          <Link to="/courses" className="block px-4 py-2 hover:bg-gray-100">
             كورساتي
-          </a>
+          </Link>
+
           <hr className="my-2" />
-          <button
-            onClick={() => {
-              navigate("/login");
-            }}
-            className="flex items-center justify-center gap-1 w-full border border-gray-400 text-gray-800 px-3 py-2 rounded-full hover:bg-gray-100"
-          >
-            <FaLock className="text-sm" />
-            تسجيل دخول
-          </button>
-          <button
-            onClick={() => {
-              navigate("/register");
-            }}
-            className="flex items-center justify-center gap-1 w-full bg-gray-400 text-white px-3 py-2 rounded-full hover:bg-blue-800"
-          >
-            <FaUser className="text-sm" />
-            إنشاء حساب
-          </button>
+
+          {isAuthinticated ? (
+            <>
+              <Link
+                to="/userprofile"
+                className="block px-4 py-2 hover:bg-gray-100 flex items-center gap-2"
+              >
+                <CiHome />
+                الملف الشخصي
+              </Link>
+              <div className="px-4 py-2 text-gray-600 flex items-center gap-2">
+                <CiUser />
+                الرقم المدني للطالب : 0554882
+              </div>
+              <button
+                onClick={handleLogut}
+                className="flex items-center justify-center gap-2 w-full text-red-600 px-3 py-2 hover:bg-gray-100"
+              >
+                <IoIosLogOut />
+                تسجيل الخروج
+              </button>
+              <div className="px-4 pt-2">
+                <IoIosNotificationsOutline
+                  size={32}
+                  className="bg-main rounded-full p-1.5 text-white"
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={() => navigate("/login")}
+                className="flex items-center justify-center gap-2 w-full border border-gray-400 text-gray-800 px-3 py-2 rounded-full hover:bg-gray-100"
+              >
+                <FaLock className="text-sm" />
+                تسجيل دخول
+              </button>
+              <button
+                onClick={() => navigate("/register")}
+                className="flex items-center justify-center gap-2 w-full bg-main text-white px-3 py-2 rounded-full hover:bg-blue-800"
+              >
+                <FaUser className="text-sm" />
+                إنشاء حساب
+              </button>
+            </>
+          )}
         </div>
       )}
     </nav>

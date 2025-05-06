@@ -1,43 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import line from "../../../assets/Line 2.png";
 import TeacherCard from "../../../Components/Teachers-Components/Teacher-Card";
 import { Link } from "react-router-dom";
+import PresetFilter from "../../../Components/Shared/PresetsFilter";
 
 const Teachers: React.FC = () => {
-  const options = [
-    {
-      stage: "المرحلة الثانوية",
-      grades: [
-        "الصف الثاني عشر",
-        "الصف الحادي عشر",
-        "الصف العاشر ",
-      ],
-      sections: ["علمي", "أدبي"],
-    },
-    {
-      stage: "المرحلة المتوسطة",
-      grades: ["الصف التاسع","الصف الثامن", "الصف  السابع", "الصف  السادس"],
-    },
-    {
-      stage: "المرحلة الابتدائية",
-      grades: [
-        "الصف الخامس الابتدائي",
-        "الصف الرابع الابتدائي",
-        "الصف الثالث الابتدائي",
-        "الصف الثاني الابتدائي",
-        "الصف الأول الابتدائي",
-      ],
-    },
-  ];
-
-  const [selectedStage, setSelectedStage] = useState<string>(options[0].stage);
-  const [selectedGrade, setSelectedGrade] = useState<string>(
-    options[0].grades[0]
-  );
-  const [selectedSection, setSelectedSection] = useState<string>("علمي");
-
-  const currentStageObj = options.find((o) => o.stage === selectedStage);
-
   const teachers = [
     {
       image:
@@ -73,54 +40,7 @@ const Teachers: React.FC = () => {
       </div>
 
       <div className="flex justify-center mt-8 px-4">
-        <div className="flex lg:flex-row flex-col gap-2 bg-gray-200 p-3 rounded-lg shadow-sm w-full">
-          {/* Stage Dropdown */}
-          <select
-            value={selectedStage}
-            onChange={(e) => {
-              const newStage = e.target.value;
-              const stageObj = options.find((o) => o.stage === newStage);
-              setSelectedStage(newStage);
-              setSelectedGrade(stageObj?.grades[0] || "");
-              setSelectedSection(stageObj?.sections?.[0] || "");
-            }}
-            className="bg-white border border-gray-300 rounded-lg px-4 py-2 text-sm hover:border-gray-500 transition duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-300"
-          >
-            {options.map((opt) => (
-              <option key={opt.stage} value={opt.stage}>
-                {opt.stage}
-              </option>
-            ))}
-          </select>
-
-          {/* Grade Dropdown */}
-          <select
-            value={selectedGrade}
-            onChange={(e) => setSelectedGrade(e.target.value)}
-            className="bg-white border border-gray-300 rounded-lg px-4 py-2 text-sm hover:border-gray-500 transition duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-300"
-          >
-            {currentStageObj?.grades.map((grade) => (
-              <option key={grade} value={grade}>
-                {grade}
-              </option>
-            ))}
-          </select>
-
-          {/* Section Dropdown (only if available) */}
-          {currentStageObj?.sections && (
-            <select
-              value={selectedSection}
-              onChange={(e) => setSelectedSection(e.target.value)}
-              className="bg-white border border-gray-300 rounded-lg px-4 py-2 text-sm hover:border-gray-500 transition duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-300"
-            >
-              {currentStageObj.sections.map((section) => (
-                <option key={section} value={section}>
-                  {section}
-                </option>
-              ))}
-            </select>
-          )}
-        </div>
+        <PresetFilter onChange={() => console.log("here")} />
       </div>
 
       {/* Cards Grid */}

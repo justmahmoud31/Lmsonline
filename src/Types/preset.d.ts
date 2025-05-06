@@ -5,6 +5,8 @@ export interface Preset {
     order: number;
     createdAt: string;
     updatedAt: string;
+    hasSection?: boolean;
+    stageId?:number;
   }
   
   export interface PresetsState {

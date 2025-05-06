@@ -7,6 +7,7 @@ import { Toaster } from "react-hot-toast";
 import Signup from "./Modules/Auth/Signup";
 import Footer from "./Components/Shared/Footer";
 import Profile from "./Modules/Profile/Profile";
+import Subjects from "./Modules/Subjects/Subjects";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Signup />} />
         <Route path="/userprofile" element={<Profile />} />
+        <Route path="/subjects" element={<Subjects />} />
       </Routes>
       <Footer />
     </>
