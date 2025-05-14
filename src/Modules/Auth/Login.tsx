@@ -7,7 +7,7 @@ import loginPic from "../../assets/bro.png";
 import { loginUser } from "../../Store/Apis/Auth/Login/LoginApi";
 import { AppDispatch, RootState } from "../../Store/store";
 const initialState = {
-  phoneNumber: "",
+  email: "",
   password: "",
   useCodeLogin: false,
 };
@@ -20,7 +20,7 @@ type Action =
 function reducer(state: State, action: Action): State {
   switch (action.type) {
     case "SET_PHONE":
-      return { ...state, phoneNumber: action.payload };
+      return { ...state, email: action.payload };
     case "SET_PASSWORD":
       return { ...state, password: action.payload };
     default:
@@ -34,17 +34,17 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);
 
-  const { phoneNumber, password } = state;
+  const { email, password } = state;
   const { loading } = useSelector((state: RootState) => state.login);
 
   const handleLogin = useCallback(async () => {
-    if (!phoneNumber || !password) {
+    if (!email || !password) {
       return toast.error("يرجى ملء جميع الحقول");
     }
 
     try {
       const result = await dispatch(
-        loginUser({ phoneNumber, password })
+        loginUser({ email, password })
       ).unwrap();
       toast.success("تم تسجيل الدخول بنجاح!");
 
@@ -54,7 +54,7 @@ const Login: React.FC = () => {
     } catch (err: any) {
       toast.error(err || "حدث خطأ أثناء تسجيل الدخول");
     }
-  }, [phoneNumber, password, dispatch, navigate]);
+  }, [email, password, dispatch, navigate]);
 
   return (
     <>
@@ -84,8 +84,8 @@ const Login: React.FC = () => {
             {/* Phone Input */}
             <InputField
               icon={<FiPhone className="text-gray-500 mr-2" />}
-              placeholder="رقم الهاتف"
-              value={phoneNumber}
+              placeholder="البريد الالكتروني"
+              value={email}
               onChange={(e) =>
                 dispatchForm({ type: "SET_PHONE", payload: e.target.value })
               }

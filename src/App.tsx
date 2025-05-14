@@ -8,6 +8,7 @@ import Signup from "./Modules/Auth/Signup";
 import Footer from "./Components/Shared/Footer";
 import Profile from "./Modules/Profile/Profile";
 import Subjects from "./Modules/Subjects/Subjects";
+import { TeachersPage } from "./Modules/Teachers/TeachersPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/register" element={<Signup />} />
         <Route path="/userprofile" element={<Profile />} />
         <Route path="/subjects" element={<Subjects />} />
+        <Route path="/teachers" element={<TeachersPage/>} />
       </Routes>
       <Footer />
     </>
