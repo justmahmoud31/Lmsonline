@@ -85,6 +85,7 @@ const PresetFilter: React.FC<PresetFilterProps> = ({ onChange }) => {
             }}
             className="bg-white border border-gray-300 rounded-lg px-4 py-2 text-sm hover:border-gray-500 transition duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-300"
           >
+    
             {stagesWithGrades.map((stage) => (
               <option key={stage.id} value={stage.id}>
                 {stage.name}

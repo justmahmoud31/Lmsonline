@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import line from "../../../assets/Line 2.png";
 import TeacherCard from "../../../Components/Teachers-Components/Teacher-Card";
 import { Link } from "react-router-dom";
@@ -8,13 +8,43 @@ import { AppDispatch, RootState } from "../../../Store/store";
 import { getAllTeachers } from "../../../Store/Apis/Teachers/getTeachersApi";
 import teacherpic from "../../../assets/TeahcerPic.png";
 import Loading from "../../../Components/Shared/Loading/Loading";
+import { TeacherQuery } from "../../../Types/teacher";
 const Teachers: React.FC = () => {
   const { teachers, teachersError, teachersLoading } = useSelector(
     (state: RootState) => state.teacher
   );
   const dispatch = useDispatch<AppDispatch>();
+  const [filters, setFilters] = useState<{
+    stageId: number | null;
+    gradeId: number | null;
+    section: string;
+  }>({ stageId: null, gradeId: null, section: "" });
+
+  // Update filters from PresetFilter
+  const handleFilterChange = useCallback(
+    (filters: {
+      stageId: number | null;
+      gradeId: number | null;
+      section: string;
+    }) => {
+      const query: TeacherQuery = {};
+      query.limit = 4;
+      if (filters.stageId) query.stageId = filters.stageId;
+      if (filters.gradeId) query.gradeId = filters.gradeId;
+      if (filters.section) query.section = filters.section;
+
+      dispatch(getAllTeachers(query));
+    },
+    [dispatch]
+  );
   useEffect(() => {
-    dispatch(getAllTeachers());
+    const query: TeacherQuery = {};
+    query.limit = 4;
+    if (filters.stageId) query.stageId = filters.stageId;
+    if (filters.gradeId) query.gradeId = filters.gradeId;
+    if (filters.section) query.section = filters.section;
+
+    dispatch(getAllTeachers(query));
   }, [dispatch]);
 
   return (
@@ -25,12 +55,12 @@ const Teachers: React.FC = () => {
       </div>
 
       <div className="flex justify-center mt-8 px-4">
-        <PresetFilter onChange={() => console.log("here")} />
+        <PresetFilter onChange={handleFilterChange} />
       </div>
 
       {/* Cards Grid */}
       {teachersLoading ? (
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center my-12">
           <Loading />
         </div>
       ) : (

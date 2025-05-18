@@ -8,10 +8,12 @@ export interface Material {
     description: string;
     createdAt: Date;
     updatedAt: Date;
+    _count: {
+        TeacherMaterial: number;
+    }
 }
 export interface getMaterial {
     data: Material[];
-    count: number;
 }
 export interface MaterialState {
     materials: Material[];

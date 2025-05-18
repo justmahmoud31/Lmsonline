@@ -14,3 +14,9 @@ export interface TeacherState {
     teachersLoading: boolean;
     teachersError: string | null;
 }
+export interface TeacherQuery {
+    stageId?: number;
+    gradeId?: number;
+    section?: string;
+    limit?: number;
+}

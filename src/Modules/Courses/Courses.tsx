@@ -1,83 +1,77 @@
 import React, { useCallback, useEffect, useState } from "react";
-import PresetFilter from "../../Components/Shared/PresetsFilter";
-import line from "../../assets/Line 2.png";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../Store/store";
-import { getMaterials } from "../../Store/Apis/Material/getMaterialApi";
+import CourseCard from "../../Components/Courses-Components/Course-Card";
 import Loading from "../../Components/Shared/Loading/Loading";
-import { MaterialQueryParams } from "../../Types/material";
-import SubjectsCard from "../../Components/Subjects-Comonents/Subjects-Card";
-
-const Subjects: React.FC = () => {
-  const { materials, loading, error } = useSelector(
-    (state: RootState) => state.material
+import PresetFilter from "../../Components/Shared/PresetsFilter";
+import { getAllCourses } from "../../Store/Apis/Courses/getCoursesApi";
+import { AppDispatch, RootState } from "../../Store/store";
+import { CourseQueryParams } from "../../Types/course";
+import line from "../../assets/Line 2.png";
+const Courses: React.FC = () => {
+  const { courseLoadig, courses, courseError } = useSelector(
+    (state: RootState) => state.course
   );
   const dispatch = useDispatch<AppDispatch>();
-
   const [filters, setFilters] = useState<{
     stageId: number | null;
     gradeId: number | null;
     section: string;
   }>({ stageId: null, gradeId: null, section: "" });
-
-  // Update filters from PresetFilter
   const handleFilterChange = useCallback(
     (filters: {
       stageId: number | null;
       gradeId: number | null;
       section: string;
     }) => {
-      const query: MaterialQueryParams = {};
+      const query: CourseQueryParams = {};
       if (filters.stageId) query.stageId = filters.stageId;
       if (filters.gradeId) query.gradeId = filters.gradeId;
       if (filters.section) query.section = filters.section;
 
-      dispatch(getMaterials(query));
+      dispatch(getAllCourses(query));
     },
     [dispatch]
   );
   // Call API only when filters change
   useEffect(() => {
-    const query: MaterialQueryParams = {};
+    const query: CourseQueryParams = {};
     if (filters.stageId) query.stageId = filters.stageId;
     if (filters.gradeId) query.gradeId = filters.gradeId;
     if (filters.section) query.section = filters.section;
 
-    dispatch(getMaterials(query));
+    dispatch(getAllCourses(query));
   }, [filters, dispatch]);
-
   return (
     <div className="flex justify-center items-center flex-col my-12">
       <div className="flex flex-col justify-center items-center">
-        <h2 className="text-2xl font-bold">المواد</h2>
+        <h2 className="text-2xl font-bold">الكورسات</h2>
         <img src={line} className="w-1/2" />
       </div>
 
       <PresetFilter onChange={handleFilterChange} />
 
-      {loading ? (
+      {courseLoadig ? (
         <div className="flex justify-center items-center my-12">
           <Loading />
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10 px-4 w-full max-w-7xl">
-          {materials.map((material, idx) => (
-            <SubjectsCard
+          {courses.map((material, idx) => (
+            <CourseCard
               key={idx}
-              subjectName={material.name}
-              subjectNoOfInstructors={material._count.TeacherMaterial}
+              courseName={material.name}
+              NoOfVidoes={material._count.Lesson}
             />
           ))}
         </div>
       )}
 
-      {error && (
+      {courseError && (
         <div className="text-red-500 mt-4">
-          <p>حدث خطأ أثناء تحميل المواد: {error}</p>
+          <p>حدث خطأ أثناء تحميل المواد: {courseError}</p>
         </div>
       )}
     </div>
   );
 };
-
-export default Subjects;
+export default Courses;
