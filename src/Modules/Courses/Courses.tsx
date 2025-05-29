@@ -61,6 +61,7 @@ const Courses: React.FC = () => {
               key={idx}
               courseName={material.name}
               NoOfVidoes={material._count.Lesson}
+              courseId={material.id}
             />
           ))}
         </div>

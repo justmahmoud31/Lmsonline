@@ -1,5 +1,8 @@
+import { Part } from "./part";
+
 export interface Course {
     name: string;
+    id: number;
     term: string;
     price: number;
     year: string;
@@ -11,6 +14,12 @@ export interface Course {
         Lesson: number;
         Exam: number;
     }
+    Part: Part[];
+
+}
+export interface OneCourse {
+    data: Course;
+
 }
 export interface getCourse {
     data: Course[]
@@ -19,6 +28,7 @@ export interface CourseState {
     courses: Course[],
     courseLoadig: boolean;
     courseError: string | null;
+    oneCourse: OneCourse | {};
 }
 export interface CourseQueryParams {
     stageId?: number;

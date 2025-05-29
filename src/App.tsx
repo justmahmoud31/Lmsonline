@@ -10,6 +10,7 @@ import Profile from "./Modules/Profile/Profile";
 import Subjects from "./Modules/Subjects/Subjects";
 import { TeachersPage } from "./Modules/Teachers/TeachersPage";
 import Courses from "./Modules/Courses/Courses";
+import OneCourse from "./Modules/Courses/OneCourse";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/subjects" element={<Subjects />} />
         <Route path="/teachers" element={<TeachersPage />} />
         <Route path="/courses" element={<Courses />} />
+        <Route path="/course/:id" element={<OneCourse />} />
       </Routes>
       <Footer />
     </>

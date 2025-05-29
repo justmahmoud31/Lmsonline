@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { CourseState } from "../../../Types/course";
 import { getAllCourses } from "./getCoursesApi";
+import { getOneCourse } from "./getOneCourseApi";
 const initialState: CourseState = {
   courseError: null,
   courses: [],
+  oneCourse: {},
   courseLoadig: false,
 };
 const CourseSlice = createSlice({
@@ -21,6 +23,18 @@ const CourseSlice = createSlice({
         state.courses = action.payload.data;
       })
       .addCase(getAllCourses.rejected, (state, action) => {
+        state.courseLoadig = false;
+        state.courseError = action.payload || "حدث خطأ!";
+      })
+      .addCase(getOneCourse.pending, (state) => {
+        state.courseLoadig = true;
+        state.courseError = null;
+      })
+      .addCase(getOneCourse.fulfilled, (state, action) => {
+        state.courseLoadig = false;
+        state.oneCourse = action.payload;
+      })
+      .addCase(getOneCourse.rejected, (state, action) => {
         state.courseLoadig = false;
         state.courseError = action.payload || "حدث خطأ!";
       });

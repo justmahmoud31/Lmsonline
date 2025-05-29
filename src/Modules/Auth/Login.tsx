@@ -1,6 +1,7 @@
 import React, { useCallback, useReducer } from "react";
 import toast from "react-hot-toast";
-import { FiEye, FiEyeOff, FiLock, FiPhone } from "react-icons/fi";
+import { CgMail } from "react-icons/cg";
+import { FiEye, FiEyeOff, FiLock } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import loginPic from "../../assets/bro.png";
@@ -43,9 +44,7 @@ const Login: React.FC = () => {
     }
 
     try {
-      const result = await dispatch(
-        loginUser({ email, password })
-      ).unwrap();
+      const result = await dispatch(loginUser({ email, password })).unwrap();
       toast.success("تم تسجيل الدخول بنجاح!");
 
       if (result.access_token) {
@@ -83,7 +82,7 @@ const Login: React.FC = () => {
 
             {/* Phone Input */}
             <InputField
-              icon={<FiPhone className="text-gray-500 mr-2" />}
+              icon={<CgMail className="text-gray-500 mr-2" />}
               placeholder="البريد الالكتروني"
               value={email}
               onChange={(e) =>
