@@ -12,11 +12,12 @@ const Courses: React.FC = () => {
     (state: RootState) => state.course
   );
   const dispatch = useDispatch<AppDispatch>();
-  const [filters, setFilters] = useState<{
+  const [filters] = useState<{
     stageId: number | null;
     gradeId: number | null;
     section: string;
   }>({ stageId: null, gradeId: null, section: "" });
+  
   const handleFilterChange = useCallback(
     (filters: {
       stageId: number | null;

@@ -14,7 +14,7 @@ const Subjects: React.FC = () => {
   );
   const dispatch = useDispatch<AppDispatch>();
 
-  const [filters, setFilters] = useState<{
+  const [filters] = useState<{
     stageId: number | null;
     gradeId: number | null;
     section: string;

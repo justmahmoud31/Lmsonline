@@ -14,7 +14,7 @@ const Teachers: React.FC = () => {
     (state: RootState) => state.teacher
   );
   const dispatch = useDispatch<AppDispatch>();
-  const [filters, setFilters] = useState<{
+  const [filters] = useState<{
     stageId: number | null;
     gradeId: number | null;
     section: string;
