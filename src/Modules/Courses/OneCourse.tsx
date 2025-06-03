@@ -1,9 +1,17 @@
 import React, { useEffect } from "react";
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
+  Divider,
+} from "@mui/material";
+import { FiChevronDown } from "react-icons/fi";  
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "../../Store/store";
 import { getOneCourse } from "../../Store/Apis/Courses/getOneCourseApi";
-import { OneCourse as OneCourseType } from "../../Types/course"; // update this import path as needed
+import { OneCourse as OneCourseType } from "../../Types/course";
 import Loading from "../../Components/Shared/Loading/Loading";
 
 const OneCourse: React.FC = () => {
@@ -19,7 +27,6 @@ const OneCourse: React.FC = () => {
     }
   }, [dispatch, id]);
 
-  // Type assertion
   const courseData = oneCourse as OneCourseType;
 
   return (
@@ -29,6 +36,7 @@ const OneCourse: React.FC = () => {
           <Loading />
         </div>
       )}
+
       {courseError && (
         <p className="text-center text-red-500 font-semibold">
           حدث خطأ: {courseError}
@@ -54,13 +62,54 @@ const OneCourse: React.FC = () => {
             />
           </div>
 
-          <hr />
+          <Divider className="!my-6" />
 
           <h3 className="text-xl font-bold mt-6">أجزاء الكورس</h3>
+
           {courseData.data.Part && courseData.data.Part.length > 0 ? (
-            <div className="space-y-4">
+            <div>
               {courseData.data.Part.map((part) => (
-                <PartCard key={part.id} part={part} />
+                <Accordion key={part.id}>
+                  <AccordionSummary expandIcon={<FiChevronDown size={24} />}>
+                    <Typography fontWeight={600}>
+                      {part.name} - رقم الجزء: {part.number}
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography variant="body2" color="text.secondary">
+                      {part.description}
+                    </Typography>
+
+                    <Typography className="mt-2 text-sm">
+                      عدد الدروس: {part._count.Lesson} | عدد الامتحانات:{" "}
+                      {part._count.Exam}
+                    </Typography>
+
+                    <Divider className="!my-4" />
+
+                    {part.Lesson && part.Lesson.length > 0 ? (
+                      <div className="space-y-2">
+                        {part.Lesson.map((lesson: any) => (
+                          <div
+                            key={lesson.id}
+                            className="p-3 bg-gray-100 rounded-md shadow-sm"
+                          >
+                            <Typography fontWeight={500}>
+                              الدرس: {lesson.name}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              {lesson.description}
+                            </Typography>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <Typography variant="body2" color="text.disabled">
+                        لا توجد دروس لهذا الجزء.
+                      </Typography>
+                    )}
+                  </AccordionDetails>
+                </Accordion>
               ))}
             </div>
           ) : (
@@ -74,24 +123,10 @@ const OneCourse: React.FC = () => {
 
 export default OneCourse;
 
-// Reusable info display
+// Info display
 const Info: React.FC<{ label: string; value: string }> = ({ label, value }) => (
   <div>
     <p className="font-semibold text-gray-800">{label}</p>
     <p className="text-gray-700">{value}</p>
-  </div>
-);
-
-// PartCard component
-const PartCard: React.FC<{ part: any }> = ({ part }) => (
-  <div className="p-4 border rounded-md shadow-sm bg-gray-50">
-    <h4 className="text-lg font-bold">{part.name}</h4>
-    <p className="text-sm text-gray-600">{part.description}</p>
-    <div className="text-sm mt-2 text-gray-700">
-      <p>رقم الجزء: {part.number}</p>
-      <p>
-        عدد الدروس: {part._count.Lesson} | عدد الامتحانات: {part._count.Exam}
-      </p>
-    </div>
   </div>
 );

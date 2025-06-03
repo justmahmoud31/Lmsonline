@@ -39,7 +39,7 @@ const DetaildCourseCard: React.FC<DetailedCardCourseProps> = ({
               {" "}
               {coursePrice.toFixed(2)}{" "}
             </p>
-            جنيهاً
+            دينارا
           </div>
         </div>
 

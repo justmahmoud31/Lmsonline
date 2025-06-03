@@ -1,5 +1,5 @@
 import React from "react";
-import mainpic from "../../../assets/main-pic.png";
+import mainpic from "../../../assets/hero.png";
 
 const Hero: React.FC = () => {
   return (
@@ -43,7 +43,7 @@ const Hero: React.FC = () => {
 
       {/* Image Section */}
       <div className="flex justify-center items-center w-full md:w-1/2">
-        <img src={mainpic} alt="الواجهة الرئيسية" className="w-3/4" />
+        <img src={mainpic} alt="الواجهة الرئيسية" className="" />
       </div>
     </div>
   );

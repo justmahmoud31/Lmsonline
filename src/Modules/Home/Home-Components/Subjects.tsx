@@ -1,6 +1,6 @@
 import React from "react";
-import subject1 from "../../../assets/subjects1.png";
-import subject2 from "../../../assets/subject2.png";
+import subject1 from "../../../assets/subject1.png";
+import subject2 from "../../../assets/subjects2.png";
 import subject3 from "../../../assets/subject3.png";
 import line from "../../../assets/Line 2.png";
 import { Link } from "react-router-dom";
