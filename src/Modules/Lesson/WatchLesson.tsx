@@ -14,7 +14,9 @@ import {
   List,
   ListItemButton,
 } from "@mui/material";
+import { FaPlay } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
+import Loading from "../../Components/Shared/Loading/Loading";
 function WatchLesson() {
   const { id } = useParams();
   const dispatch = useDispatch<AppDispatch>();
@@ -26,6 +28,8 @@ function WatchLesson() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [flatLessons, setFlatLessons] = useState<Lesson[]>([]);
   const [accordionOpen, setAccordionOpen] = useState<boolean[]>([]);
+  console.log(flatLessons);
+
   useEffect(() => {
     if (id) {
       dispatch(getOneCourse({ courseId: id }));
@@ -59,30 +63,27 @@ function WatchLesson() {
     }
   }, [lessons]);
 
-  // Find the index of the currently selected lesson in the flatLessons array
-  const currentIndex = selectedLesson
-    ? flatLessons.findIndex((lesson) => lesson.id === selectedLesson.id)
-    : -1;
-
   return (
     <div className="flex">
       {/* Mobile Toggle Button */}
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
-        className="absolute top-20 right-4 z-20 p-2 bg-gray-200 cursor-pointer rounded md:hidden"
+        className="absolute flex justify-center items-center top-20 right-4 z-20 p-2 bg-gray-200 cursor-pointer rounded md:hidden"
       >
-        <CiMenuFries size={16} />
+        <CiMenuFries size={16} /> قائمة الدروس
       </button>
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-10 min-h-screen h-full w-64 py-4 px-1 bg-gray-100 border-r overflow-y-auto transform transition-transform duration-300 ease-in-out
+        className={`fixed top-0 left-0 z-10 min-h-screen h-full w-64 py-4 px-1 bg-gray-100  overflow-y-auto transform transition-transform duration-300 ease-in-out
           ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} 
           md:translate-x-0 md:static md:block`}
       >
-        <h2 className="text-xl font-bold mb-4">الدروس</h2>
+        <h2 className="text-xl ms-1 text-main font-bold mb-4">الدروس</h2>
         {courseLoadig ? (
-          <p>جاري تحميل الدورة...</p>
+          <div className="flex justify-center items-center my-8">
+            <Loading />
+          </div>
         ) : courseError ? (
           <p className="text-red-500">{courseError}</p>
         ) : "data" in oneCourse ? (
@@ -121,11 +122,11 @@ function WatchLesson() {
                         }}
                         className={
                           selectedLesson?.id === lesson.id
-                            ? "bg-main text-white rounded"
+                            ? "bg-main flex justify-center items-center gap-2 text-white rounded"
                             : ""
                         }
                       >
-                        {lesson.name}
+                        <FaPlay /> {lesson.name}
                       </ListItemButton>
                     ))}
                   </List>
@@ -139,10 +140,11 @@ function WatchLesson() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 lg:p-6  py-12 ml-0 overflow-y-auto">
+      <main className="flex-1 lg:py-6 px-4 py-16 ml-0 overflow-y-auto">
+        <h1 className="text-3xl text-center text-main">{'data' in oneCourse ? oneCourse.data.name : ''}</h1>
         {selectedLesson ? (
           <div>
-            <h2 className="text-2xl font-semibold mb-4">
+            <h2 className="text-2xl text-main font-semibold mb-4">
               {selectedLesson.name}
             </h2>
             <p className="mb-4 text-gray-600">{selectedLesson.description}</p>
@@ -170,33 +172,6 @@ function WatchLesson() {
             ) : (
               <p>لا يوجد فيديو أو ملف للعرض.</p>
             )}
-            <div className="flex justify-between items-center mt-6">
-              <button
-                disabled={!selectedLesson || currentIndex === 0}
-                onClick={() => {
-                  if (currentIndex > 0) {
-                    setSelectedLesson(flatLessons[currentIndex - 1]);
-                  }
-                }}
-                className="bg-gray-200 px-4 cursor-pointer py-2 rounded disabled:opacity-50"
-              >
-                الدرس السابق
-              </button>
-
-              <button
-                disabled={
-                  !selectedLesson || currentIndex === flatLessons.length - 1
-                }
-                onClick={() => {
-                  if (currentIndex < flatLessons.length - 1) {
-                    setSelectedLesson(flatLessons[currentIndex + 1]);
-                  }
-                }}
-                className="bg-gray-200 px-4 py-2 cursor-pointer rounded disabled:opacity-50"
-              >
-                الدرس التالي
-              </button>
-            </div>
           </div>
         ) : (
           <p>اختر درسًا من القائمة لعرضه.</p>
