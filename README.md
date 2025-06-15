@@ -5,7 +5,6 @@ This project is designed to [briefly describe the purpose of the project, e.g., 
 
 ## Folder Structure
 The project is organized into the following folders:
-.
 ├── README.md
 ├── eslint.config.js
 ├── index.html

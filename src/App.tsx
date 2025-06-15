@@ -11,6 +11,7 @@ import Subjects from "./Modules/Subjects/Subjects";
 import { TeachersPage } from "./Modules/Teachers/TeachersPage";
 import Courses from "./Modules/Courses/Courses";
 import OneCourse from "./Modules/Courses/OneCourse";
+import WatchLesson from "./Modules/Lesson/WatchLesson";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/teachers" element={<TeachersPage />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/course/:id" element={<OneCourse />} />
+        <Route path="/course/lesson/:id" element={<WatchLesson />} />
       </Routes>
       <Footer />
     </>

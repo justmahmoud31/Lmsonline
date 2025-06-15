@@ -6,9 +6,9 @@ import {
   Typography,
   Divider,
 } from "@mui/material";
-import { FiChevronDown } from "react-icons/fi";  
+import { FiChevronDown } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "../../Store/store";
 import { getOneCourse } from "../../Store/Apis/Courses/getOneCourseApi";
 import { OneCourse as OneCourseType } from "../../Types/course";
@@ -76,9 +76,7 @@ const OneCourse: React.FC = () => {
                     </Typography>
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Typography variant="body2" color="text.secondary">
-                      {part.description}
-                    </Typography>
+                    <p className="text-gray-500">{part.description}</p>
 
                     <Typography className="mt-2 text-sm">
                       عدد الدروس: {part._count.Lesson} | عدد الامتحانات:{" "}
@@ -95,11 +93,17 @@ const OneCourse: React.FC = () => {
                             className="p-3 bg-gray-100 rounded-md shadow-sm"
                           >
                             <Typography fontWeight={500}>
-                              الدرس: {lesson.name}
+                              <Link
+                                to={`/course/lesson/${id}`}
+                                className="hover:underline"
+                              >
+                                {" "}
+                                الدرس: {lesson.name}
+                              </Link>
                             </Typography>
-                            <Typography variant="body2" color="text.secondary">
+                            <p className="text-gray-500">
                               {lesson.description}
-                            </Typography>
+                            </p>
                           </div>
                         ))}
                       </div>
