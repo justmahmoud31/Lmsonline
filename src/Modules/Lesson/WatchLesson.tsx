@@ -101,7 +101,7 @@ function WatchLesson() {
                 <AccordionSummary expandIcon={<IoIosArrowDown />}>
                   <div className="w-full flex justify-between items-center">
                     <Typography>{part.name}</Typography>
-                    <p className="text-gray-500">{part._count.Lesson} درس</p>
+                    <p className="text-sm text-gray-500">{part._count.Lesson} درس</p>
                   </div>
                 </AccordionSummary>
 

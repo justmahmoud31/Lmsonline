@@ -12,6 +12,8 @@ import { IoIosLogOut } from "react-icons/io";
 import { CiHome } from "react-icons/ci";
 import { CiUser } from "react-icons/ci";
 import { IoIosNotificationsOutline } from "react-icons/io";
+import Drawer from "@mui/material/Drawer";
+
 const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -55,7 +57,7 @@ const Navbar: React.FC = () => {
             المواد
           </Link>
           <Link to={"/courses"} className="hover:text-main">
-            كورساتي
+            الكورسات
           </Link>
         </div>
         {isAuthinticated ? (
@@ -127,28 +129,74 @@ const Navbar: React.FC = () => {
         {/* Left buttons */}
 
         {/* Hamburger for mobile */}
-        <div className="md:hidden">
+        <div className="md:hidden  flex items-center justify-center">
+          <div className="px-1 pt-1">
+            <IoIosNotificationsOutline
+              size={32}
+              className="bg-main rounded-full p-1.5 text-white "
+            />
+          </div>
           <button onClick={toggleMenu} className="text-gray-700">
-            {menuOpen ? <HiX size={24} cursor="pointer"/> : <HiMenu cursor="pointer" size={24} />}
+            {menuOpen ? (
+              <HiX size={24} cursor="pointer" />
+            ) : (
+              <HiMenu cursor="pointer" size={24} />
+            )}
           </button>
+          
         </div>
       </div>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="md:hidden mt-4 space-y-3 text-right border-t pt-4">
-          {/* Links */}
-          <Link to="/" className="block px-4 py-2 hover:bg-gray-100">
+      <Drawer
+        anchor="right"
+        open={menuOpen}
+        onClose={toggleMenu}
+        PaperProps={{
+          sx: {
+            width: "80%",
+            maxWidth: 320,
+            padding: "16px",
+            backgroundColor: "white",
+          },
+        }}
+      >
+        <div className="space-y-3 text-right">
+          {/* Close button inside drawer */}
+          <div className="flex justify-between items-center mb-4">
+            <span className="font-bold text-lg text-main">القائمة</span>
+            <button onClick={toggleMenu}>
+              <HiX size={24} />
+            </button>
+          </div>
+
+          <Link
+            to="/"
+            className="block px-2 py-2 hover:bg-gray-100 rounded"
+            onClick={toggleMenu}
+          >
             الرئيسية
           </Link>
-          <Link to="/teachers" className="block px-4 py-2 hover:bg-gray-100">
+          <Link
+            to="/teachers"
+            className="block px-2 py-2 hover:bg-gray-100 rounded"
+            onClick={toggleMenu}
+          >
             المدرسين
           </Link>
-          <Link to="/subjects" className="block px-4 py-2 hover:bg-gray-100">
+          <Link
+            to="/subjects"
+            className="block px-2 py-2 hover:bg-gray-100 rounded"
+            onClick={toggleMenu}
+          >
             المواد
           </Link>
-          <Link to="/courses" className="block px-4 py-2 hover:bg-gray-100">
-            كورساتي
+          <Link
+            to="/courses"
+            className="block px-2 py-2 hover:bg-gray-100 rounded"
+            onClick={toggleMenu}
+          >
+            الكورسات
           </Link>
 
           <hr className="my-2" />
@@ -157,41 +205,42 @@ const Navbar: React.FC = () => {
             <>
               <Link
                 to="/userprofile"
-                className="block px-4 py-2 hover:bg-gray-100 flex items-center gap-2"
+                className="block px-2 py-2 hover:bg-gray-100 rounded flex items-center gap-2"
+                onClick={toggleMenu}
               >
                 <CiHome />
                 الملف الشخصي
               </Link>
-              <div className="px-4 py-2 text-gray-600 flex items-center gap-2">
+              <div className="px-2 py-2 text-gray-600 flex items-center gap-2">
                 <CiUser />
                 الرقم المدني للطالب : 0554882
               </div>
               <button
                 onClick={handleLogut}
-                className="flex items-center justify-center gap-2 w-full text-red-600 px-3 py-2 hover:bg-gray-100"
+                className="w-full text-red-600 px-2 py-2 hover:bg-gray-100 rounded flex gap-2 items-center"
               >
                 <IoIosLogOut />
                 تسجيل الخروج
               </button>
-              <div className="px-4 pt-2">
-                <IoIosNotificationsOutline
-                  size={32}
-                  className="bg-main rounded-full p-1.5 text-white"
-                />
-              </div>
             </>
           ) : (
             <>
               <button
-                onClick={() => navigate("/login")}
-                className="flex items-center justify-center gap-2 w-full border border-gray-400 text-gray-800 px-3 py-2 rounded-full hover:bg-gray-100"
+                onClick={() => {
+                  navigate("/login");
+                  toggleMenu();
+                }}
+                className="w-full border border-gray-400 text-gray-800 px-3 py-2 rounded-full hover:bg-gray-100 flex items-center justify-center gap-2"
               >
                 <FaLock className="text-sm" />
                 تسجيل دخول
               </button>
               <button
-                onClick={() => navigate("/register")}
-                className="flex items-center justify-center gap-2 w-full bg-main text-white px-3 py-2 rounded-full hover:bg-blue-800"
+                onClick={() => {
+                  navigate("/register");
+                  toggleMenu();
+                }}
+                className="w-full bg-main text-white px-3 py-2 rounded-full hover:bg-blue-800 flex items-center justify-center gap-2"
               >
                 <FaUser className="text-sm" />
                 إنشاء حساب
@@ -199,7 +248,7 @@ const Navbar: React.FC = () => {
             </>
           )}
         </div>
-      )}
+      </Drawer>
     </nav>
   );
 };

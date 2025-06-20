@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import signupImage from "../../assets/registerpic.png";
 import { getPresets } from "../../Store/Apis/Persets/getPersets";
 import { AppDispatch, RootState } from "../../Store/store";
-
+import { MdEmail } from "react-icons/md";
 const Signup: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { stages } = useSelector((state: RootState) => state.presets);
@@ -17,6 +17,7 @@ const Signup: React.FC = () => {
     firstName: "",
     lastName: "",
     stageId: "",
+    email: "",
     address: "",
     city: "",
     zipCode: "",
@@ -49,6 +50,7 @@ const Signup: React.FC = () => {
     const requestBody = {
       firstName: formData.firstName,
       lastName: formData.lastName,
+      email : formData.email,
       stageId: Number(formData.stageId),
       address: formData.address || "N/A",
       city: formData.city || "N/A",
@@ -70,6 +72,7 @@ const Signup: React.FC = () => {
         firstName: "",
         lastName: "",
         stageId: "",
+        email: "",
         address: "",
         city: "",
         zipCode: "",
@@ -127,7 +130,12 @@ const Signup: React.FC = () => {
               onChange={(val) => handleChange("lastName", val)}
             />
           </div>
-
+          <Input
+            label="البريد الالكتروني"
+            icon={<MdEmail />}
+            value={formData.email}
+            onChange={(val) => handleChange("email", val)}
+          />
           <div className="flex lg:flex-row flex-col gap-4">
             <Input
               label="رقم الهاتف"

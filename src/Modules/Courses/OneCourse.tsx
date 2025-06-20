@@ -1,25 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
   Typography,
   Divider,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
 } from "@mui/material";
 import { FiChevronDown } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../../Store/store";
 import { getOneCourse } from "../../Store/Apis/Courses/getOneCourseApi";
 import { OneCourse as OneCourseType } from "../../Types/course";
 import Loading from "../../Components/Shared/Loading/Loading";
-
+import { MdOutlinePublic } from "react-icons/md";
+import { FaLock } from "react-icons/fa";
+import sorry from '../../assets/Feeling sorry-pana.png'
 const OneCourse: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
   const { oneCourse, courseLoadig, courseError } = useSelector(
     (state: RootState) => state.course
   );
+
+  const [openDialog, setOpenDialog] = useState(false);
+  const [dialogContent, setDialogContent] = useState<React.ReactNode>(null);
 
   useEffect(() => {
     if (id) {
@@ -28,6 +40,45 @@ const OneCourse: React.FC = () => {
   }, [dispatch, id]);
 
   const courseData = oneCourse as OneCourseType;
+
+  const handleLessonClick = (lesson: any) => {
+    if (lesson.public) {
+      if (lesson.File?.url) {
+        setDialogContent(
+          <div className="w-full h-[300px]">
+            <video controls className="w-full h-full rounded">
+              <source
+                src={`${import.meta.env.VITE_VIDEOSTREAMING}${
+                  lesson.File.path
+                }`}
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        );
+      } else {
+        setDialogContent(<Typography>لا يوجد فيديو مرفق.</Typography>);
+      }
+    } else {
+      setDialogContent(
+        <div className="space-y-4 text-center flex flex-col justify-center items-center">
+          <img src={sorry} className="h-72"/>
+          <h6  className="text-red-500">
+            يجب الاشتراك لعرض هذا المحتوى
+          </h6>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => navigate(`/checkout/${id}`)}
+          >
+            اشترك الآن
+          </Button>
+        </div>
+      );
+    }
+    setOpenDialog(true);
+  };
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -48,6 +99,17 @@ const OneCourse: React.FC = () => {
           <h2 className="text-3xl font-bold text-center">
             {courseData.data.name}
           </h2>
+
+          {/* Subscribe CTA */}
+          <div className="text-center mt-2">
+            <Link
+              to={`/checkout/${id}`}
+              className="inline-block bg-main text-white px-4 py-2 rounded transition"
+            >
+              اشترك الآن
+            </Link>
+          </div>
+
           <p className="text-center text-gray-600">
             {courseData.data.description}
           </p>
@@ -90,17 +152,13 @@ const OneCourse: React.FC = () => {
                         {part.Lesson.map((lesson: any) => (
                           <div
                             key={lesson.id}
-                            className="p-3 bg-gray-100 rounded-md shadow-sm"
+                            onClick={() => handleLessonClick(lesson)}
+                            className="p-3 bg-gray-100 rounded-md shadow-sm cursor-pointer hover:bg-gray-200 transition"
                           >
-                            <Typography fontWeight={500}>
-                              <Link
-                                to={`/course/lesson/${id}`}
-                                className="hover:underline"
-                              >
-                                {" "}
-                                الدرس: {lesson.name}
-                              </Link>
-                            </Typography>
+                            <h2 className="flex items-center gap-1 text-center justify-start">
+                              {lesson.public ? <MdOutlinePublic /> : <FaLock />}
+                              الدرس: {lesson.name}
+                            </h2>
                             <p className="text-gray-500">
                               {lesson.description}
                             </p>
@@ -121,13 +179,26 @@ const OneCourse: React.FC = () => {
           )}
         </div>
       )}
+
+      {/* Dialog */}
+      <Dialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogTitle>عرض الدرس</DialogTitle>
+        <DialogContent>{dialogContent}</DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenDialog(false)}>إغلاق</Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
 
 export default OneCourse;
 
-// Info display
 const Info: React.FC<{ label: string; value: string }> = ({ label, value }) => (
   <div>
     <p className="font-semibold text-gray-800">{label}</p>

@@ -11,7 +11,6 @@ export const getOneCourse = createAsyncThunk<
     const response = await axios.get<OneCourse>(
       `${import.meta.env.VITE_BASEURL}/api/courses/${courseId}`
     );
-    console.log("RESPONSE:", response.data);
     return response.data;
   } catch (error: any) {
     return rejectWithValue(error.message || "حدث خطأ");

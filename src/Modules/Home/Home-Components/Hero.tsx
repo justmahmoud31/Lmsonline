@@ -1,5 +1,6 @@
 import React from "react";
 import mainpic from "../../../assets/hero.png";
+import { Link } from "react-router-dom";
 
 const Hero: React.FC = () => {
   return (
@@ -17,9 +18,9 @@ const Hero: React.FC = () => {
             منصة لشرح مناهج المرحلة الابتدائية والمتوسطة والثانوية، بما في ذلك
             مناهج الثانوية العامة.
           </p>
-          <button className="bg-main text-white px-6 py-2 rounded-full w-fit hover:bg-opacity-80 transition">
+          <Link to={'/userprofile/courses'} className="bg-main text-white px-6 py-2 rounded-full w-fit hover:bg-opacity-80 transition">
             ابدأ الآن
-          </button>
+          </Link>
         </div>
 
         {/* Stats Section */}
