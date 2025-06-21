@@ -16,6 +16,7 @@ import UserCourses from "./Modules/Profile/UserCourses";
 import PrivateRoute from "./Components/Shared/ProtectedRoutes";
 import NotFound from "./Modules/NotFound/NotFound";
 import Checkout from "./Modules/Checkout/checkout";
+import Subscription from "./Modules/Subscriptions/Subscription";
 
 function App() {
   return (
@@ -47,11 +48,19 @@ function App() {
             </PrivateRoute>
           }
         />
-         <Route
+        <Route
           path="/checkout/:id"
           element={
             <PrivateRoute>
               <Checkout />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/userprofile/subscriptions"
+          element={
+            <PrivateRoute>
+              <Subscription />
             </PrivateRoute>
           }
         />

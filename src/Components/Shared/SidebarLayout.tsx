@@ -4,6 +4,7 @@ import { FiMenu, FiX } from "react-icons/fi";
 
 const tabs = [
   { name: "كورساتي", path: "/userprofile/courses" },
+  { name: "اشتراكاتي", path: "/userprofile/subscriptions" },
   { name: "بيانات المستخدم", path: "/userprofile" },
   // Add more tabs easily here
 ];
