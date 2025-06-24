@@ -7,6 +7,7 @@ import material from './Apis/Material/getMaterialSlice';
 import teacher from './Apis/Teachers/getTeacherSlice';
 import course from './Apis/Courses/getCoursesSlice';
 import lessons from './Apis/Lesson/getLessonSlice';
+import orders from './Apis/Courses/getcourseOrdersSlice';
 const store = configureStore({
   reducer: {
     presets: presetsReducer,
@@ -15,7 +16,8 @@ const store = configureStore({
     material: material,
     teacher: teacher,
     course: course,
-    lessons : lessons
+    lessons: lessons,
+    orders: orders
   },
 });
 

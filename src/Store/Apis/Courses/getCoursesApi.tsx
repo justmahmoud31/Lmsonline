@@ -26,3 +26,22 @@ export const getAllCourses = createAsyncThunk<
     return rejectWithValue(error.message || "حدث خطأ");
   }
 });
+export const fetchOrders = createAsyncThunk(
+  "orders/fetchOrders",
+  async (status: string | undefined, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        `${import.meta.env.VITE_BASEURL}/api/orders${status ? `?status=${status}` : ""}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || "فشل في جلب الطلبات");
+    }
+  }
+);

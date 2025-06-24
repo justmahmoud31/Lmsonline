@@ -1,3 +1,4 @@
+import { Exam } from "./course";
 import { Lesson } from "./lesson";
 
 export interface Part {
@@ -10,4 +11,5 @@ export interface Part {
         Lesson: number;
         Exam: number;
     }
+      Exam: Exam[];
 }

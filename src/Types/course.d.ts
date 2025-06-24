@@ -37,3 +37,11 @@ export interface CourseQueryParams {
     limit?: number;
     section?: string;
 }
+export interface Exam {
+  id: number;
+  name: string;
+  description: string;
+  date: string;
+  type: string;
+  lessonId: number | null;
+}
