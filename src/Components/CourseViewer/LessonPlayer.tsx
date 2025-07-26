@@ -18,14 +18,15 @@ const LessonPlayer = ({ path }: { path: string }) => {
 
   return videoUrl ? (
     <video
-      key={videoUrl} // ✅ force React to fully reload the <video> element
+      key={videoUrl} 
       controls
       className="w-full max-h-screen mt-4 rounded-lg"
+      controlsList="nodownload noremoteplayback"
     >
       <source src={videoUrl} type="video/mp4" />
     </video>
   ) : loading ? (
-    <div className="flex items-center justify-center h-64">
+    <div className="flex items-center justify-center h-screen">
       <Loading />
     </div>
   ) : (
