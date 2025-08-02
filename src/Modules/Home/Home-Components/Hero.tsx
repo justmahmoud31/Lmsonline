@@ -9,7 +9,7 @@ const Hero: React.FC = () => {
       dir="rtl"
     >
       {/* Text Content */}
-      <div className="flex flex-col justify-center my-10 md:my-20 w-full md:w-1/2">
+      <div className="flex flex-col justify-center my-6 md:my-12 w-full md:w-1/2">
         <div className="text-start flex flex-col items-start">
           <h1 className="lg:text-3xl text-xl font-bold text-gray-800 mb-4 font-main">
             منصة 100% اونلاين
@@ -24,7 +24,7 @@ const Hero: React.FC = () => {
         </div>
 
         {/* Stats Section */}
-        <div className="flex flex-wrap justify-evenly items-center gap-6 lg:mt-24 mt-10 font-outfit font-extrabold text-center">
+        {/* <div className="flex flex-wrap justify-evenly items-center gap-6 lg:mt-24 mt-10 font-outfit font-extrabold text-center">
           <div className="flex flex-col">
             <h2 className="text-[#FE753F] text-xl lg:text-2xl">+2000</h2>
             <p className="text-gray-600 text-sm lg:text-base">مدرسين المنصة</p>
@@ -39,7 +39,7 @@ const Hero: React.FC = () => {
               الكورسات المتاحة
             </p>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Image Section */}

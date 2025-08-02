@@ -21,6 +21,7 @@ import Loading from "../../Components/Shared/Loading/Loading";
 import { MdOutlinePublic } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 import sorry from '../../assets/Feeling sorry-pana.png'
+import LessonPlayer from "../../Components/CourseViewer/LessonPlayer";
 const OneCourse: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
@@ -45,16 +46,8 @@ const OneCourse: React.FC = () => {
     if (lesson.public) {
       if (lesson.File?.url) {
         setDialogContent(
-          <div className="w-full h-[300px]">
-            <video controls className="w-full h-full rounded">
-              <source
-                src={`${import.meta.env.VITE_VIDEOSTREAMING}${
-                  lesson.File.path
-                }`}
-                type="video/mp4"
-              />
-              Your browser does not support the video tag.
-            </video>
+          <div className="w-full h-full">
+           <LessonPlayer path={lesson.File?.path} />
           </div>
         );
       } else {
@@ -117,7 +110,7 @@ const OneCourse: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
             <Info label="السنة الدراسية" value={courseData.data.year} />
             <Info label="الفصل الدراسي" value={courseData.data.term} />
-            <Info label="السعر" value={`${courseData.data.price} د.ع`} />
+            <Info label="السعر" value={`${courseData.data.price} د.ك`} />
             <Info
               label="الحالة"
               value={courseData.data._count.Part > 0 ? "نشط" : "غير نشط"}

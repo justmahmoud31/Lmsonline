@@ -1,16 +1,40 @@
-import { CardContent, Typography, RadioGroup, FormControlLabel, Radio, Button, TextField } from "@mui/material";
+import {
+  CardContent,
+  Typography,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  Button,
+  TextField,
+  CircularProgress,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { getExamQuestions } from "../../services/examService";
 import axios from "axios";
+import { getUserResult } from "../../Store/Apis/Results/getUserResult";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "../../Store/store";
 
 const ExamViewer = ({ examId }: { examId: number }) => {
   const [questions, setQuestions] = useState<any[]>([]);
   const [answers, setAnswers] = useState<Record<number, any>>({});
   const [submitted, setSubmitted] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const { result, loading, error } = useSelector((state: RootState) => state.results as {
+    result: { data: { finalScore: number; totalScore: number; createdAt: string }[] };
+    loading: boolean;
+    error: string | null;
+  });
 
   useEffect(() => {
     getExamQuestions(examId).then(setQuestions);
   }, [examId]);
+
+  useEffect(() => {
+    if (submitted) {
+      dispatch(getUserResult({ examId }));
+    }
+  }, [submitted, examId, dispatch]);
 
   const handleChange = (questionId: number, field: string, value: any) => {
     setAnswers((prev) => ({
@@ -34,10 +58,7 @@ const ExamViewer = ({ examId }: { examId: number }) => {
     try {
       await axios.post(
         `${import.meta.env.VITE_BASEURL}/api/results/submit`,
-        {
-          examId,
-          submitQuestionResults,
-        },
+        { examId, submitQuestionResults },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -51,7 +72,38 @@ const ExamViewer = ({ examId }: { examId: number }) => {
   };
 
   if (submitted) {
-    return <Typography className="text-center mt-6">تم إرسال إجاباتك بنجاح ✅</Typography>;
+    if (loading) {
+      return (
+        <div className="text-center mt-10">
+          <CircularProgress />
+          <Typography>جاري تحميل النتيجة...</Typography>
+        </div>
+      );
+    }
+
+    if (error) {
+      return (
+        <Typography className="text-center mt-6 text-red-600">
+          {error}
+        </Typography>
+      );
+    }
+
+    return (
+      <div className="text-center mt-10 space-y-4">
+        <Typography variant="h5">✅ تم إرسال إجاباتك بنجاح</Typography>
+        {result?.data?.length > 0 && (
+          <>
+            <Typography variant="h6">
+              النتيجة: {result.data[0].finalScore} / {result.data[0].totalScore}
+            </Typography>
+            <Typography variant="body2">
+              تم الإنتهاء في: {new Date(result.data[0].createdAt).toLocaleString("ar-EG")}
+            </Typography>
+          </>
+        )}
+      </div>
+    );
   }
 
   return (

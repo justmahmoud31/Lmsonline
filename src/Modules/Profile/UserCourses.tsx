@@ -31,7 +31,7 @@ function UserCourses() {
 
   return (
     <SidebarLayout>
-      <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 text-right">
+      <div className="lg:min-h-screen py-8 px-4 sm:px-6 lg:px-8 text-right">
         <h1 className="text-3xl font-bold text-gray-800 mb-6">دوراتي</h1>
 
         {orders.length === 0 ? (
@@ -46,11 +46,11 @@ function UserCourses() {
                   <img
                     src={courseImg}
                     alt="صورة الدورة"
-                    className="w-full  object-cover rounded-t-md"
+                    className="w-full h-[150px]   rounded-t-md"
                   />
                   <CardContent>
                     <Typography variant="h6" component="div" className="mb-2">
-                      رقم الدورة: {order.courseId}
+                      اسم الدورة: {order.Course.name}
                     </Typography>
 
                     <p className="mb-2 text-gray-600">
@@ -59,7 +59,7 @@ function UserCourses() {
                     </p>
 
                     <Typography variant="body2" className="mb-2">
-                      <strong>السعر الكلي:</strong> ${order.totalPrice}
+                      <strong>السعر الكلي:</strong> {order.totalPrice} د.ك
                     </Typography>
 
                     <Typography variant="body2" className="mb-2">

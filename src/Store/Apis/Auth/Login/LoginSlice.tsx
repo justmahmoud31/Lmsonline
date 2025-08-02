@@ -8,13 +8,15 @@ interface AuthState {
   role: string | null;
   loading: boolean;
   error: string | null;
+  isAuthenticated?: boolean;
 }
-
+const TWO_DAYS = 2 * 24 * 60 * 60 * 1000;
 const initialState: AuthState = {
   token: null,
   role: null,
   loading: false,
   error: null,
+  isAuthenticated: false,
 };
 
 const authSlice = createSlice({
@@ -35,6 +37,10 @@ const authSlice = createSlice({
         state.role = role;
       }
     },
+    setAuthFromStorage: (state, action) => {
+      state.isAuthenticated = true;
+      state.token = action.payload.access_token;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -42,15 +48,19 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(loginUser.fulfilled, (state, action: PayloadAction<LoginResponse["data"]>) => {
-        state.loading = false;
-        state.token = action.payload.access_token;
-        state.role = action.payload.role;
+      .addCase(
+        loginUser.fulfilled,
+        (state, action: PayloadAction<LoginResponse["data"]>) => {
+          state.loading = false;
+          state.token = action.payload.access_token;
+          state.role = action.payload.role;
 
-        // Save to localStorage (or cookies if preferred)
-        localStorage.setItem("token", action.payload.access_token);
-        localStorage.setItem("role", action.payload.role);
-      })
+          // Save to localStorage (or cookies if preferred)
+          localStorage.setItem("token", action.payload.access_token);
+          localStorage.setItem("role", action.payload.role);
+          localStorage.setItem("tokenExpiry", String(Date.now() + TWO_DAYS));
+        }
+      )
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || "Login failed";
@@ -58,5 +68,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout, loadAuthFromStorage } = authSlice.actions;
+export const { logout, loadAuthFromStorage, setAuthFromStorage } =
+  authSlice.actions;
 export default authSlice.reducer;

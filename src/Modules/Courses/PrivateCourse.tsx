@@ -42,7 +42,12 @@ function CoursePage() {
         {course.Part.map((part) => (
           <Accordion key={part.id} defaultExpanded>
             <AccordionSummary expandIcon={<IoIosArrowDown />}>
-              {part.name}
+              <div className="flex justify-between items-center w-full">
+                <h2>{part.name}</h2>
+                <span className="text-gray-500 text-sm">
+                  {part.Lesson.length + part.Exam.length} محتوى
+                </span>
+              </div>
             </AccordionSummary>
             <AccordionDetails className="space-y-2">
               {part.Lesson.map((lesson) => (

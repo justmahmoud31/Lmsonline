@@ -1,15 +1,18 @@
 import React from "react";
 import subjectImg from "../../assets/subject.png";
+import { Link } from "react-router-dom";
 interface SubjectsCardProps {
   subjectName: string;
   subjectNoOfInstructors: number;
+  id: number;
 }
 const SubjectsCard: React.FC<SubjectsCardProps> = ({
   subjectName,
   subjectNoOfInstructors,
+  id,
 }) => {
   return (
-    <div className="flex bg-secondary px-2 py-4 rounded-lg shadow-md w-full">
+    <Link to={`/subject/courses/${id}`} className="flex bg-secondary px-2 py-4 rounded-lg shadow-md w-full">
       <div className="flex">
         <img src={subjectImg} />
       </div>
@@ -19,7 +22,7 @@ const SubjectsCard: React.FC<SubjectsCardProps> = ({
           عدد المدرسين المتاحين: {subjectNoOfInstructors}
         </p>
       </div>
-    </div>
+    </Link>
   );
 };
 export default SubjectsCard;

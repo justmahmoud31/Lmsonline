@@ -6,22 +6,19 @@ const tabs = [
   { name: "كورساتي", path: "/userprofile/courses" },
   { name: "اشتراكاتي", path: "/userprofile/subscriptions" },
   { name: "بيانات المستخدم", path: "/userprofile" },
-  // Add more tabs easily here
 ];
 
-const SidebarLayout: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+const SidebarLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
 
   return (
-    <div className="flex h-screen text-right bg-gray-50">
+    <div className="lg:h-screen min-h-screen flex flex-col md:flex-row bg-gray-50 text-right">
+      {/* Sidebar */}
       <div
         className={`fixed z-40 top-0 right-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out
-        ${
-          sidebarOpen ? "translate-x-0" : "translate-x-full"
-        } md:translate-x-0 md:static`}
+        ${sidebarOpen ? "translate-x-0" : "translate-x-full"} 
+        md:translate-x-0 md:static`}
       >
         <div className="flex items-center justify-between p-4">
           <h2 className="text-lg text-main font-bold">لوحة التحكم</h2>
@@ -48,16 +45,16 @@ const SidebarLayout: React.FC<{ children: React.ReactNode }> = ({
         </nav>
       </div>
 
-      {/* Overlay on mobile */}
+      {/* Mobile Overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-transparent bg-opacity-20 backdrop-blur-sm z-30 md:hidden"
+          className="fixed inset-0 bg-white/20 bg-opacity-30 backdrop-blur-sm z-30 md:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      {/* Content area */}
+      <div className="flex flex-col flex-1 min-h-screen">
         {/* Header */}
         <header className="p-4 bg-white shadow-md flex justify-between items-center md:hidden">
           <h1 className="text-lg font-bold">لوحة التحكم</h1>
@@ -66,7 +63,10 @@ const SidebarLayout: React.FC<{ children: React.ReactNode }> = ({
           </button>
         </header>
 
-        <main className="p-6">{children}</main>
+        {/* Main Content */}
+        <main className="flex-1 p-6">{children}</main>
+
+  
       </div>
     </div>
   );

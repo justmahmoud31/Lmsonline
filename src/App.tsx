@@ -18,6 +18,7 @@ import NotFound from "./Modules/NotFound/NotFound";
 import Checkout from "./Modules/Checkout/checkout";
 import Subscription from "./Modules/Subscriptions/Subscription";
 import CoursePage from "./Modules/Courses/PrivateCourse";
+import { SubjectCourses } from "./Modules/Subjects/SubjectCourses/SubjectCourses";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/courses" element={<Courses />} />
         <Route path="/course/:id" element={<OneCourse />} />
         <Route path="/course/lesson/:id" element={<WatchLesson />} />
+        <Route path="/subject/courses/:id" element={<SubjectCourses />} />
         <Route
           path="/userprofile/courses"
           element={

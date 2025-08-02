@@ -36,6 +36,7 @@ export interface CourseQueryParams {
     mainMaterialId?: number;
     limit?: number;
     section?: string;
+    materialId?: number;
 }
 export interface Exam {
   id: number;

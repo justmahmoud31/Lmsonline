@@ -66,6 +66,7 @@ const Subjects: React.FC = () => {
               key={idx}
               subjectName={material.name}
               subjectNoOfInstructors={material._count.TeacherMaterial}
+              id={material.id}
             />
           ))}
         </div>
