@@ -9,7 +9,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 // React Icons
-import { HiOutlineAcademicCap, HiOutlineCalendar, HiOutlineClock } from "react-icons/hi";
+import {  HiOutlineCalendar, HiOutlineClock } from "react-icons/hi";
 import { FaListOl, FaRegFileAlt, FaRegMoneyBillAlt } from "react-icons/fa";
 import { MdMenuBook } from "react-icons/md";
 
