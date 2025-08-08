@@ -14,6 +14,9 @@ export interface Course {
         Lesson: number;
         Exam: number;
     }
+    Image : {
+        path :string;
+    }
     Part: Part[];
 
 }
