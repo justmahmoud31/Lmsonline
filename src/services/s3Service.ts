@@ -8,13 +8,8 @@ export const getSignedVideoUrl = async (key: string) => {
       { key },
       { headers: { Authorization: `Bearer ${token}` }, withCredentials: true }
     );
-
-    // Temporary — store cookies on current domain for testing
-    Object.entries(data.data.cookies).forEach(([name, cookieData]: any) => {
-      document.cookie = `${name}=${cookieData.value}; Path=${cookieData.options.path}; Secure; SameSite=None`;
-    });
-
-    return data.data.fileUrl; // This should be the CloudFront URL
+    
+    return data.data.fileUrl; 
   } catch (error) {
     console.error(error);
   }
